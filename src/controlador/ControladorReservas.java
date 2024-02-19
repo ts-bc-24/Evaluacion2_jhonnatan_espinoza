@@ -30,13 +30,12 @@ public class ControladorReservas {
     /**
      * Busca un cliente en la lista de reservas.
      *
-     * @param nombre Nombre del cliente.
      * @param rut Rut del cliente.
      * @return Posicion del cliente en la lista de reservas. Si no se encuentra, retorna -1.
      */
-    public int buscarCliente(String nombre, int rut){
+    public int buscarCliente(int rut){
         for (int i = 0; i < reservas.size(); i++) {
-            if(reservas.get(i).getDatosCliente().getNombre().equalsIgnoreCase(nombre) && reservas.get(i).getDatosCliente().getRut() == rut){
+            if(reservas.get(i).getDatosCliente().getRut() == rut){
                 return i;
             }
         }
@@ -49,7 +48,7 @@ public class ControladorReservas {
      * @param carpa Carpa que se va a reservar.
      */
     public void ingresarCarpa(Carpa carpa){
-        if ( buscarCliente(carpa.getDatosCliente().getNombre(), carpa.getDatosCliente().getRut()) == -1) {
+        if ( buscarCliente(carpa.getDatosCliente().getRut()) == -1) {
             reservas.add(carpa);
         }
     }
@@ -60,7 +59,7 @@ public class ControladorReservas {
      * @param hotel Hotel que se va a reservar.
      */
     public void ingresarHotel(Hotel hotel){
-        if ( buscarCliente(hotel.getDatosCliente().getNombre(), hotel.getDatosCliente().getRut()) == -1) {
+        if ( buscarCliente(hotel.getDatosCliente().getRut()) == -1) {
             reservas.add(hotel);
         }
     }
@@ -70,7 +69,7 @@ public class ControladorReservas {
      * @param cabagna Cabaña que se va a reservar.
      */
     public void ingresarCabagna(modelo.Cabagna cabagna){
-        if (buscarCliente(cabagna.getDatosCliente().getNombre(), cabagna.getDatosCliente().getRut()) == -1) {
+        if (buscarCliente(cabagna.getDatosCliente().getRut()) == -1) {
             reservas.add(cabagna);
         }
     }
@@ -168,15 +167,6 @@ public class ControladorReservas {
         return total;
     }
 
-    /**
-     * Calcula el valor a cancelar de todas las reservas.
-     *
-     * @return Valor a cancelar de todas las reservas.
-     */
-    public int cantidadReservas(){
-        return reservas.size();
-    }
-
     public int cantidadReservasCarpa(){
         int total = 0;
         for (MedioDeAlojamiento alojamiento : reservas) {
@@ -215,11 +205,11 @@ public class ControladorReservas {
      * @return Valor a cancelar del cliente.
      */
     public double valorACancelarCliente(String nombre, int rut){
-        int posicion = buscarCliente(nombre, rut);
+        int posicion = buscarCliente(rut);
         if(posicion != -1){
             return reservas.get(posicion).valorACancelar();
         }
-        return 0;
+        return posicion;
     }
 
 }

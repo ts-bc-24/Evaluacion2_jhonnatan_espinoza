@@ -30,7 +30,7 @@ public class App {
                 case 1:
                     // Datos requeridos en MedioDeAlojamiento
                     DatosCliente cliente = ingresarCliente(); // Datos del cliente
-                    if(controlador.buscarCliente(cliente.getNombre(), cliente.getRut()) != -1){
+                    if(controlador.buscarCliente(cliente.getRut()) != -1){
                         System.out.println("El cliente ya se encuentra registrado.");
                         break;
                     }
@@ -112,11 +112,14 @@ public class App {
                     System.out.println("\nTotal bono descuento: " + controlador.bonoDescuento());
                     break;
                 case 6:
-                    System.out.println("\nReservas de Carpas: " + controlador.cantidadReservasCarpa());
-                    System.out.println("Reservas de Hoteles: " + controlador.cantidadReservasHotel());
-                    System.out.println("Reservas de Cabañas: " + controlador.cantidadReservasCabagna());
+                    int nCarpa = controlador.cantidadReservasCarpa();
+                    int nHotel = controlador.cantidadReservasHotel();
+                    int nCabagna = controlador.cantidadReservasCabagna();
+                    System.out.println("\nReservas de Carpas: " + nCarpa);
+                    System.out.println("Reservas de Hoteles: " + nHotel);
+                    System.out.println("Reservas de Cabañas: " + nCabagna);
                     System.out.println("-----------------------------------------------------");
-                    System.out.println("Total de reservas: " + controlador.cantidadReservas());
+                    System.out.println("Total de reservas: " + (nCarpa + nHotel + nCabagna));
                     break;
                 case 7:
                     // TODO - Valor a cancelar por un cliente
