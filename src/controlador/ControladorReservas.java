@@ -84,12 +84,12 @@ public class ControladorReservas {
                 System.out.println("Valor Base Noche: " + carpa.getValorBaseNoche());
                 System.out.println("Cantidad de Noches: " + carpa.getCantidadNoches());
                 System.out.println("Tipo de Temporada: " + carpa.getTipoTemporada());
-                System.out.println("Cliente: " + carpa.getDatosCliente().getNombre() + " - " + carpa.getDatosCliente().getRut());
+                System.out.println("Cliente: " + carpa.getDatosCliente().getRut() + " - " + carpa.getDatosCliente().getNombre());
                 System.out.println("Cantidad de Personas: " + carpa.getCantidadPersonas());
                 System.out.println("Subtotal: " + carpa.subtotal());
                 System.out.println("Bono Descuento: " + carpa.bonoDescuento());
                 System.out.println("Valor a Cancelar: " + carpa.valorACancelar());
-                System.out.println("-----------------------------------------------------");
+                System.out.println();
             }
         }
     }
@@ -104,7 +104,7 @@ public class ControladorReservas {
                 System.out.println("Valor Base Noche: " + hotel.getValorBaseNoche());
                 System.out.println("Cantidad de Noches: " + hotel.getCantidadNoches());
                 System.out.println("Tipo de Temporada: " + hotel.getTipoTemporada());
-                System.out.println("Cliente: " + hotel.getDatosCliente().getNombre() + " - " + hotel.getDatosCliente().getRut());
+                System.out.println("Cliente: " + hotel.getDatosCliente().getRut() + " - " + hotel.getDatosCliente().getNombre());
                 System.out.println("Capacidad: " + hotel.getCapacidad());
                 System.out.println("Fumador: " + (hotel.isFumador() ? "Si" : "No"));
                 System.out.println("Con Desayuno: " + (hotel.isConDesayuno() ? "Si" : "No"));
@@ -112,7 +112,7 @@ public class ControladorReservas {
                 System.out.println("Bono Descuento: " + hotel.bonoDescuento());
                 System.out.println("Adicional: " + hotel.adicional());
                 System.out.println("Valor a Cancelar: " + hotel.valorACancelar());
-                System.out.println("-----------------------------------------------------");
+                System.out.println();
             }
         }
     }
@@ -127,14 +127,14 @@ public class ControladorReservas {
                 System.out.println("Valor Base Noche: " + cabagna.getValorBaseNoche());
                 System.out.println("Cantidad de Noches: " + cabagna.getCantidadNoches());
                 System.out.println("Tipo de Temporada: " + cabagna.getTipoTemporada());
-                System.out.println("Cliente: " + cabagna.getDatosCliente().getNombre() + " - " + cabagna.getDatosCliente().getRut());
+                System.out.println("Cliente: " + cabagna.getDatosCliente().getRut() + " - " + cabagna.getDatosCliente().getNombre());
                 System.out.println("Capacidad: " + cabagna.getCapacidad());
                 System.out.println("Fumador: " + (cabagna.isFumador() ? "Si" : "No"));
                 System.out.println("Chimenea: " + (cabagna.isChimenea() ? "Si" : "No"));
                 System.out.println("Subtotal: " + cabagna.subtotal());
                 System.out.println("Bono Descuento: " + cabagna.bonoDescuento());
                 System.out.println("Valor a Cancelar: " + cabagna.valorACancelar());
-                System.out.println("-----------------------------------------------------");
+                System.out.println();
             }
         }
     }
@@ -167,6 +167,11 @@ public class ControladorReservas {
         return total;
     }
 
+    /**
+     * Obtiene la cantidad de reservas de tipo Carpa.
+     *
+     * @return Cantidad de reservas de tipo Carpa.
+     * */
     public int cantidadReservasCarpa(){
         int total = 0;
         for (MedioDeAlojamiento alojamiento : reservas) {
@@ -177,6 +182,11 @@ public class ControladorReservas {
         return total;
     }
 
+    /**
+     * Obtiene la cantidad de reservas de tipo Hotel.
+     *
+     * @return Cantidad de reservas de tipo Hotel.
+     */
     public int cantidadReservasHotel(){
         int total = 0;
         for (MedioDeAlojamiento alojamiento : reservas) {
@@ -187,6 +197,11 @@ public class ControladorReservas {
         return total;
     }
 
+    /**
+     * Obtiene la cantidad de reservas de tipo Cabaña.
+     *
+     * @return Cantidad de reservas de tipo Cabaña.
+     */
     public int cantidadReservasCabagna(){
         int total = 0;
         for (MedioDeAlojamiento alojamiento : reservas) {
@@ -210,6 +225,26 @@ public class ControladorReservas {
             return reservas.get(posicion).valorACancelar();
         }
         return posicion;
+    }
+
+    /**
+     * Aplica un incremento al valor base de todas las cabañas.
+     */
+    public void aplicarIncrementoCabagna(){
+        for (MedioDeAlojamiento alojamiento : reservas) {
+            if(alojamiento instanceof Cabagna cabagna){
+                double base = cabagna.getValorBaseNoche();
+                double incremento = cabagna.incrementaValorBase();
+                if (incremento > 0){
+                    cabagna.setValorBaseNoche(base + incremento);
+                    System.out.println("Valor Base: " + base);
+                    System.out.println("Valor de incremento: " + incremento);
+                    System.out.println("Nuevo valor Base: " + cabagna.getValorBaseNoche());
+                    System.out.println("Capacidad: " + cabagna.getCapacidad());
+                    System.out.println();
+                }
+            }
+        }
     }
 
 }

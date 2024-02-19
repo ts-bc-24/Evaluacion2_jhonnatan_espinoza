@@ -4,9 +4,9 @@ public class DatosCliente {
     private String nombre;
     private int rut;
 
-    public DatosCliente(String nombre, int rut) {
-        this.nombre = nombre;
+    public DatosCliente(int rut, String nombre) {
         this.rut = rut;
+        this.nombre = nombre;
     }
 
     public String getNombre() {
