@@ -56,4 +56,5 @@ public class Cabagna extends Hospederia{
     public double valorACancelar() {
         return subtotal() - bonoDescuento();
     }
+
 }

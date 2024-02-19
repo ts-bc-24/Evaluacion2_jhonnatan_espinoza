@@ -1,9 +1,6 @@
 package controlador;
 
-import modelo.Carpa;
-import modelo.DatosCliente;
-import modelo.Hotel;
-import modelo.MedioDeAlojamiento;
+import modelo.*;
 
 import java.util.ArrayList;
 
@@ -51,7 +48,7 @@ public class ControladorReservas {
      *
      * @param carpa Carpa que se va a reservar.
      */
-    public void agregarReservaCarpa(Carpa carpa){
+    public void ingresarCarpa(Carpa carpa){
         if ( buscarCliente(carpa.getDatosCliente().getNombre(), carpa.getDatosCliente().getRut()) == -1) {
             reservas.add(carpa);
         }
@@ -62,7 +59,7 @@ public class ControladorReservas {
      *
      * @param hotel Hotel que se va a reservar.
      */
-    public void agregarReservaHotel(Hotel hotel){
+    public void ingresarHotel(Hotel hotel){
         if ( buscarCliente(hotel.getDatosCliente().getNombre(), hotel.getDatosCliente().getRut()) == -1) {
             reservas.add(hotel);
         }
@@ -72,7 +69,7 @@ public class ControladorReservas {
      *
      * @param cabagna Cabaña que se va a reservar.
      */
-    public void agregarReservaCabagna(modelo.Cabagna cabagna){
+    public void ingresarCabagna(modelo.Cabagna cabagna){
         if (buscarCliente(cabagna.getDatosCliente().getNombre(), cabagna.getDatosCliente().getRut()) == -1) {
             reservas.add(cabagna);
         }
@@ -83,8 +80,17 @@ public class ControladorReservas {
      */
     public void mostrarReservasCarpa(){
         for (MedioDeAlojamiento alojamiento : reservas) {
-            if(alojamiento instanceof Carpa){
-                System.out.println(alojamiento);
+            if(alojamiento instanceof Carpa carpa){
+                System.out.println("Tipo de Alojamiento: Carpa");
+                System.out.println("Valor Base Noche: " + carpa.getValorBaseNoche());
+                System.out.println("Cantidad de Noches: " + carpa.getCantidadNoches());
+                System.out.println("Tipo de Temporada: " + carpa.getTipoTemporada());
+                System.out.println("Cliente: " + carpa.getDatosCliente().getNombre() + " - " + carpa.getDatosCliente().getRut());
+                System.out.println("Cantidad de Personas: " + carpa.getCantidadPersonas());
+                System.out.println("Subtotal: " + carpa.subtotal());
+                System.out.println("Bono Descuento: " + carpa.bonoDescuento());
+                System.out.println("Valor a Cancelar: " + carpa.valorACancelar());
+                System.out.println("-----------------------------------------------------");
             }
         }
     }
@@ -94,8 +100,20 @@ public class ControladorReservas {
      */
     public void mostrarReservasHotel(){
         for (MedioDeAlojamiento alojamiento : reservas) {
-            if(alojamiento instanceof Hotel){
-                System.out.println(alojamiento);
+            if(alojamiento instanceof Hotel hotel){
+                System.out.println("Tipo de Alojamiento: Hotel");
+                System.out.println("Valor Base Noche: " + hotel.getValorBaseNoche());
+                System.out.println("Cantidad de Noches: " + hotel.getCantidadNoches());
+                System.out.println("Tipo de Temporada: " + hotel.getTipoTemporada());
+                System.out.println("Cliente: " + hotel.getDatosCliente().getNombre() + " - " + hotel.getDatosCliente().getRut());
+                System.out.println("Capacidad: " + hotel.getCapacidad());
+                System.out.println("Fumador: " + (hotel.isFumador() ? "Si" : "No"));
+                System.out.println("Con Desayuno: " + (hotel.isConDesayuno() ? "Si" : "No"));
+                System.out.println("Subtotal: " + hotel.subtotal());
+                System.out.println("Bono Descuento: " + hotel.bonoDescuento());
+                System.out.println("Adicional: " + hotel.adicional());
+                System.out.println("Valor a Cancelar: " + hotel.valorACancelar());
+                System.out.println("-----------------------------------------------------");
             }
         }
     }
@@ -105,8 +123,19 @@ public class ControladorReservas {
      */
     public void mostrarReservasCabagna(){
         for (MedioDeAlojamiento alojamiento : reservas) {
-            if(alojamiento instanceof modelo.Cabagna){
-                System.out.println(alojamiento);
+            if(alojamiento instanceof Cabagna cabagna){
+                System.out.println("Tipo de Alojamiento: Cabaña");
+                System.out.println("Valor Base Noche: " + cabagna.getValorBaseNoche());
+                System.out.println("Cantidad de Noches: " + cabagna.getCantidadNoches());
+                System.out.println("Tipo de Temporada: " + cabagna.getTipoTemporada());
+                System.out.println("Cliente: " + cabagna.getDatosCliente().getNombre() + " - " + cabagna.getDatosCliente().getRut());
+                System.out.println("Capacidad: " + cabagna.getCapacidad());
+                System.out.println("Fumador: " + (cabagna.isFumador() ? "Si" : "No"));
+                System.out.println("Chimenea: " + (cabagna.isChimenea() ? "Si" : "No"));
+                System.out.println("Subtotal: " + cabagna.subtotal());
+                System.out.println("Bono Descuento: " + cabagna.bonoDescuento());
+                System.out.println("Valor a Cancelar: " + cabagna.valorACancelar());
+                System.out.println("-----------------------------------------------------");
             }
         }
     }
@@ -119,8 +148,8 @@ public class ControladorReservas {
     public double totalAdicional(){
         double total = 0;
         for (MedioDeAlojamiento alojamiento : reservas) {
-            if(alojamiento instanceof Hotel){
-                total += ((Hotel) alojamiento).adicional();
+            if(alojamiento instanceof Hotel hotel){
+                total += hotel.adicional();
             }
         }
         return total;
@@ -146,6 +175,36 @@ public class ControladorReservas {
      */
     public int cantidadReservas(){
         return reservas.size();
+    }
+
+    public int cantidadReservasCarpa(){
+        int total = 0;
+        for (MedioDeAlojamiento alojamiento : reservas) {
+            if(alojamiento instanceof Carpa){
+                total++;
+            }
+        }
+        return total;
+    }
+
+    public int cantidadReservasHotel(){
+        int total = 0;
+        for (MedioDeAlojamiento alojamiento : reservas) {
+            if(alojamiento instanceof Hotel){
+                total++;
+            }
+        }
+        return total;
+    }
+
+    public int cantidadReservasCabagna(){
+        int total = 0;
+        for (MedioDeAlojamiento alojamiento : reservas) {
+            if(alojamiento instanceof Cabagna){
+                total++;
+            }
+        }
+        return total;
     }
 
     /**
