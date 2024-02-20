@@ -1,5 +1,5 @@
 # Sistema de Alojamiento
 
-## Solucion propuesta
+## Modelo Propuesto
 
 ![imagen de solucion](img/diagrama.jpg)
